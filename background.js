@@ -16,7 +16,7 @@ chrome.browserAction.onClicked.addListener(() => {
       }
      
       chrome.tabs.onUpdated.removeListener(listener);
-//display view 
+//display view in new browser window, screenshotUrl have the image data encoded base64 
       var views = chrome.extension.getViews();
       for (var i = 0; i < views.length; i++) {
         var view = views[i];
