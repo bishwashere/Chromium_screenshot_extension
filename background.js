@@ -19,7 +19,7 @@ let id = 100;
 chrome.browserAction.onClicked.addListener(() => {
 
   chrome.tabs.captureVisibleTab((screenshotUrl) => {
-    const viewTabUrl = chrome.extension.getURL('screenshot.html?id=' + id++)
+    const viewTabUrl = chrome.extension.getURL('popup.html?id=' + id++)
     let targetId = null;
     chrome.tabs.create({url: viewTabUrl}, (tab) => {
           targetId = tab.id;
