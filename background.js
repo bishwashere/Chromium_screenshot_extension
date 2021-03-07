@@ -1,4 +1,19 @@
-//trying to make a new window to display the screenshot image
+const API_key = "<39 character long api key>";
+//let user_sign_in=false;
+chrome.runtime.onMessage.addListener((request,sender, sendResponse)=>{
+    if(request.message==='get_access'){
+
+        chrome.identity.getAuthToken({"interactive":true}, function(auth_token){
+            console.log(auth_token);
+
+        });
+        sendResponse('success');
+    } else if(request.message === 'create file'){
+
+    }
+
+});
+/*//trying to make a new window to display the screenshot image ,ignore for now
 let id = 100;
 
 chrome.browserAction.onClicked.addListener(() => {
@@ -30,3 +45,4 @@ chrome.browserAction.onClicked.addListener(() => {
 
   });
 });
+*/
