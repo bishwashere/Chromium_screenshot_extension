@@ -1,14 +1,18 @@
 const API_key = "<39 character long api key>";
+var token ="";
 //let user_sign_in=false;
 chrome.runtime.onMessage.addListener((request,sender, sendResponse)=>{
     if(request.message==='get_access'){
 
         chrome.identity.getAuthToken({"interactive":true}, function(auth_token){
             console.log(auth_token);
+            token = auth_token; 
 
         });
         sendResponse('success');
     } else if(request.message === 'create file'){
+        
+        //to  be continued>? do something with token
 
     }
 
