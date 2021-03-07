@@ -5,7 +5,7 @@
     "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuuPrAEbznFEQrAJc2tb+Y4fGLVuhFvNPvDlV8cQWNXGIbrFN9golmV04by0QE5kv5zcLKYlzCgy8ohhG73le+qZ0zHNsH0TnBqrm7vYG5sKmirwqsQ3h4jqoVYj+rLDljHt0kelRmN8IzRuX6V6StSptOhMPFF98CVU0vt/sMSkNKOWsh/QubP8+egzEoBx+9WKAQ4kdqVRAGY/Tr2q/JSQ6W6T+uwhwc9ofsxY3YB7e/5h1c8GGkDC8Lmo4W2/2aqaTPuPR9PnGyIhhdFpnoar6v3JQeO+KXaPXhoWyx+B/e2tFMZ3Lftm50ZnYMPhvIAgluNajsZft+Mok+xuSCwIDAQAB",
     "manifest_version": 2,
     "oauth2": {
-        "client_id": "351861205747-jdceupirmv7o77ne1a3b4qh1klct94ck.apps.googleusercontent.com",//use client your id here please
+        "client_id": "<insert  client id >.apps.googleusercontent.com",
         "scopes": [
             "profile email",
             "https://www.googleapis.com/auth/drive"
