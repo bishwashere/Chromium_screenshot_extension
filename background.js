@@ -1,4 +1,3 @@
-const API_key = "AIzaSyCfUGdFGbXEsZIi-LhHiXDJBL_LZhJ0hxY";
 let user_sign_in=false;
 chrome.browserAction.onClicked.addListener(
 	()=>{
