@@ -1,0 +1,36 @@
+{
+    "name": "outh2  connect",
+    "description": "test ",
+    "version": "0.1.0",
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuxKe90JjhJtazFFWobIkK2Y5c6LWtYLGe5hzeIIgJhYsDi9GKe6lRt7D7CB6ZLNCwGutDnONol+mQdCOLnlwWcA0wdszMBcDA3VadLYn4qKv26RYcyYrc94QTgSfKCanW7m79YqVSma33XqsfsbVQBcfPvJfEWN5aGwFn38TLdOl1zY+v4bgnYjIG5lGO191R1puxjb/ri0mEQy1DrT4+cBI5OykdeUm4tWALSfJ4VARdPTD7CZIT30I27YbY1T+fE9tTN5eKGn0AzsYFqb/BNt3yAwuONV9UZ3H3EL/aKYLFkC6mF03m64yo7rMPpjDXRGE452fXkLV6hOd7YiAGQIDAQAB",
+    "manifest_version": 2,
+    "oauth2": {
+        "client_id": "867503499345-asmnv9lukeicjll0t051t61sjca3548i.apps.googleusercontent.com",
+        "scopes": [
+            "profile email",
+            "https://www.googleapis.com/auth/drive"
+
+        ]
+    },
+    "icons":{
+        "16": "ico.png",
+        "32": "ico.png",
+        "48": "ico.png",
+        "128": "ico.png"
+    },    
+    "background":{
+        "scripts":[
+            "./background.js"
+        ]
+    },
+    "browser_action":{
+        "default_icon": "ico.png"
+    }
+    ,
+    "permissions":  [
+        "identity",
+        "activeTab",
+        "storage"
+    ],
+  "options_page": "options.html"
+}
