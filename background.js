@@ -1,8 +1,10 @@
 let user_sign_in=false;
+
 chrome.browserAction.onClicked.addListener(
 	()=>{
 		chrome.tabs.captureVisibleTab((screenshotUrl) => 
 		{
+			//64 bit image string into a blob
 			const contentType = 'image/jpeg';
 			const b64Data = String(screenshotUrl.split(/,(.+)/)[1]);
 			const byteCharacters = atob(b64Data);
@@ -12,10 +14,12 @@ chrome.browserAction.onClicked.addListener(
 			}
 			const byteArray = new Uint8Array(byteNumbers);
 			const blob = new Blob([byteArray], {type: contentType});//file
-	
+			//get options of user local or google drive
 			chrome.storage.sync.get('google', function(data) {
 				if(data.google=='save to google'){
+					//get token??
 					chrome.identity.getAuthToken({"interactive":true}, (auth_token)=>{
+						//drive upload code not working error 401
 						console.log(auth_token);
 						var metadata = {
 						    'name': 'sampleName', // Filename at Google Drive
@@ -37,6 +41,7 @@ chrome.browserAction.onClicked.addListener(
 					});
 				}
 				else{
+					// if no options save blob locally
 					var download = document.createElement('a');
 					download.href= URL.createObjectURL(blob);
 					download.download= 'screenshot-';
