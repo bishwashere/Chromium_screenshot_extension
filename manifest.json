@@ -30,6 +30,7 @@
     "permissions":  [
         "identity",
         "activeTab",
+        "notifications",
         "downloads",
         "storage"
     ],
