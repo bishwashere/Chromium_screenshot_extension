@@ -12,4 +12,5 @@ function constructOptions(Button) {
     page.appendChild(button);
   }
 }
+
 constructOptions(Button);
