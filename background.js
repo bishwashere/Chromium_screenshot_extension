@@ -5,9 +5,9 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 chrome.browserAction.onClicked.addListener(
 	(tab)=>{
-		chrome.tabs.captureVisibleTab({ format: 'jpeg' },(screenshotUrl) => 
+		chrome.tabs.captureVisibleTab({ format: 'png' },(screenshotUrl) => 
 		{
-			const contentType = 'image/jpeg';
+			const contentType = 'image/png';
 			const b64Data = String(screenshotUrl.split(/,(.+)/)[1]);
 			const byteCharacters = atob(b64Data);
 			const byteNumbers = new Array(byteCharacters.length);
@@ -23,7 +23,7 @@ chrome.browserAction.onClicked.addListener(
 						console.log(auth_token);
 			let metadata = {
 			    name:    tab.title.replace(/[^a-z0-9]/gi, '-').replace('--', '-'), // Filename
-			    mimeType: 'image/jpeg', // mimeType at Google Drive
+			    mimeType: 'image/png', // mimeType at Google Drive
 			    parents: ['root'], // Folder ID in Google Drive
 			    };
 			      let form = new FormData();
