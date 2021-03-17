@@ -5,7 +5,6 @@ chrome.runtime.onInstalled.addListener(function() {
 		console.log('save to local by default');
 	});
 });
-var s = ''
 chrome.browserAction.onClicked.addListener(
 		(tab) => {
 			chrome.tabs.captureVisibleTab({
