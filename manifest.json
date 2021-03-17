@@ -30,6 +30,7 @@
     "permissions":  [
         "identity",
         "activeTab",
+        "downloads",
         "storage"
     ],
   "options_page": "options.html"
