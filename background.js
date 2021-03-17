@@ -48,7 +48,7 @@ chrome.browserAction.onClicked.addListener(
 				}
 				else{
 					chrome.downloads.download({
-					      url: dataUrl,
+					      url: screenshotUrl,
 					      filename: tab.title
 					      .replace(/[^a-z0-9]/gi, '-')
 					      .replace('--', '-')
