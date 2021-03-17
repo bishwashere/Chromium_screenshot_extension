@@ -6,7 +6,7 @@ function constructOptions(Button) {
     button.innerHTML = item;
     button.addEventListener('click', function() {
       chrome.storage.sync.set({google: item}, function() {
-        console.log('color is ' + item);//obviously
+        console.log('option is ' + item);//obviously
       })
     });
     page.appendChild(button);
