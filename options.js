@@ -10,14 +10,19 @@ function constructOptions(Button) {
         chrome.notifications.create(
                         "screenshot saver", {
                           type: "basic",
+                          silent: true,
                           iconUrl: "ico.png",
                           title: "Screenshot",
                           message: "will be ".concat(item.replace('save', "saved")),
                         },
-                        function() {
-                          chrome.tabs.getCurrent(function(tab) {
-                              chrome.tabs.remove(tab.id, function() { });
-                            });}
+                        function(id) {
+                        setTimeout(function()
+                           {
+                            chrome.notifications.clear(id);chrome.tabs.getCurrent(function(tab) {
+                            chrome.tabs.remove(tab.id, function() { });
+                            });
+                            }, 600);
+                        }
                       );
         
       })
@@ -26,4 +31,3 @@ function constructOptions(Button) {
   }
 }
 constructOptions(Button);
-

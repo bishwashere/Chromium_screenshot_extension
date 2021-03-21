@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html>
-  <head>
 <html lang="en">
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-  
-
-    button {
-    position: relative;
-    left: 10%;
-    transform: translateX(-50%);
-    width: auto;
+    body {
+    width: 300px;
     height: auto;
-    
+    }
+
+    div {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 25%;
+    padding: 5px;
     font-size: 2.5em;
     background-color: red;
     border-radius: 5px;
@@ -23,23 +23,20 @@
     color: white;
     font-family: monospace;
     font-weight: bold;
-    margin: 15px;
+    margin-bottom: 15px;
     cursor: pointer;
     transition-duration: 0.3s;
     }
 
-    button:hover {
-    background-color: #f05500;
-    transform: translateX(-50%) scale(1.2);
+    div:hover {
+    background-color: black;
+    transform: translateX(-50%) scale(1.3);
     }
     </style>
-  </head>
-  <body>
-  
-      <p>Choose an option</p>
-  
-    <div id="buttonDiv">
-    </div>
-  </body>
-  <script src="options.js"></script>
+    </head>
+    <body>
+    <h1>Sign-In With Your Google Account to Use This Extension</h1>
+    <div id='sign-in'>Sign In</div>
+    <script src="./popup-script.js"></script>
+    </body>
 </html>

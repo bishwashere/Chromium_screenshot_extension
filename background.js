@@ -59,7 +59,7 @@ chrome.browserAction.onClicked.addListener(
 													title: "Screenshot",
 													message: "Saved to google drive!",
 												},
-												function() {}
+												function(id) {setTimeout(function(){chrome.notifications.clear(id);}, 800);}
 											);
 										}
 										return res.json();
