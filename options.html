@@ -1,19 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <style>
-      button {
-        height: auto;
-        width: auto;
-        outline: none;
-        margin: 10px;
-      }
+  
+
+    button {
+    position: relative;
+    left: 10%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    
+    font-size: 2.5em;
+    background-color: red;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    font-family: monospace;
+    font-weight: bold;
+    margin: 15px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    }
+
+    button:hover {
+    background-color: #f05500;
+    transform: translateX(-50%) scale(1.2);
+    }
     </style>
   </head>
   <body>
-    <div>
+  
       <p>Choose an option</p>
-    </div>
+  
     <div id="buttonDiv">
     </div>
   </body>
