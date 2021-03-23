@@ -43,6 +43,13 @@ function createBasicNotification(messagee,time=2000){
 			);
 
 }
+function flicker(){
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+	  chrome.tabs.executeScript(
+	      tabs[0].id,
+	      {code:'(function (){ document.body.style.backgroundColor=\'#ffaaaafa\';setTimeout(function(){document.body.style.backgroundColor=\'\';}, 300); })();'});
+	});
+}
 function createProgressNotification(messagee,time=800){
 	chrome.notifications.create(
 		"screenshot saver", {
@@ -78,6 +85,7 @@ chrome.browserAction.onClicked.addListener(
 									}}
 									catch (e){
 										downloader_local(screenshotUrl,screendate);
+										
 										createBasicNotification('Saving to local drive! because error');
 										console.log(e);
 										return;
@@ -106,6 +114,8 @@ chrome.browserAction.onClicked.addListener(
 									}).then((res) => {
 										if (res.status == 200) {
 											createProgressNotification('saved to google',800);
+											flicker()
+
 										}
 										return res.json();
 									}).then(function(val) {
