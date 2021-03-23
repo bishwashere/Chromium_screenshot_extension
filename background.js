@@ -5,14 +5,10 @@ chrome.runtime.onInstalled.addListener(function() {
 		console.log('save to local by default');
 	});
 });
+
 const  googleRevokeApi= 'https://accounts.google.com/o/oauth2/revoke?token='
-chrome.browserAction.onClicked.addListener(
-		(tab) => {
-			chrome.tabs.captureVisibleTab({
-					format: 'png'
-				}, (screenshotUrl) => {
-					const date = new Date();
-					const screendate= 'screenshot '.concat(date.toISOString().substring(0, 10)).concat(" at ").concat(date.toLocaleTimeString().replaceAll(':', '.'));
+function create_the_blob(screenshotUrl){
+
 					const contentType = 'image/png';
 					const b64Data = String(screenshotUrl.split(/,(.+)/)[1]);
 					const byteCharacters = atob(b64Data);
@@ -23,7 +19,52 @@ chrome.browserAction.onClicked.addListener(
 					const byteArray = new Uint8Array(byteNumbers);
 					const blob = new Blob([byteArray], {
 						type: contentType
-					}); //file
+					}); 
+					return blob;
+
+}
+function downloader_local(screenshotUrl,screendate){
+	chrome.downloads.download({
+		url: screenshotUrl,
+		filename: screendate.concat('.png')
+		});
+}
+function createBasicNotification(messagee,time=2000){
+	         	chrome.notifications.create(
+				"screenshot saver", {
+					type: "basic",
+					iconUrl: "ico.png",
+					silent: true,
+					title: "Screenshot",
+					message: messagee,
+				},
+				function(id) {
+					setTimeout(function(){chrome.notifications.clear(id);}, time);}
+			);
+
+}
+function createProgressNotification(messagee,time=800){
+	chrome.notifications.create(
+		"screenshot saver", {
+			type: "progress",
+			iconUrl: "ico.png",
+			progress: 100,
+			title: "Screenshot",
+			message: messagee,
+		},
+		function(id) {setTimeout(function(){chrome.notifications.clear(id);}, time);}
+	);
+
+}
+chrome.browserAction.onClicked.addListener(
+		(tab) => {
+			chrome.tabs.captureVisibleTab({
+					format: 'png'
+				}, (screenshotUrl) => {
+					const date = new Date();
+					const screendate= 'screenshot '.concat(date.toISOString().substring(0, 10)).concat(" at ").concat(date.toLocaleTimeString().replaceAll(':', '.'));
+					const blob = create_the_blob(screenshotUrl);
+					//file
 
 					chrome.storage.sync.get('google', function(data) {
 							if (data.google == 'save to google') {
@@ -36,21 +77,8 @@ chrome.browserAction.onClicked.addListener(
 										throw undefined;
 									}}
 									catch (e){
-										chrome.downloads.download({
-										url: screenshotUrl,
-										filename: screendate.concat('.png')
-										});
-
-											chrome.notifications.create(
-												"screenshot saver", {
-													type: "basic",
-													iconUrl: "ico.png",
-													silent: true,
-													title: "Screenshot",
-													message: "Saving to local drive! because error",
-												},
-												function(id) {setTimeout(function(){chrome.notifications.clear(id);}, 2000);}
-											);
+										downloader_local(screenshotUrl,screendate);
+										createBasicNotification('Saving to local drive! because error');
 										console.log(e);
 										return;
 									}
@@ -77,16 +105,7 @@ chrome.browserAction.onClicked.addListener(
 										body: form,
 									}).then((res) => {
 										if (res.status == 200) {
-											chrome.notifications.create(
-												"screenshot saver", {
-													type: "progress",
-													iconUrl: "ico.png",
-													progress: 100,
-													title: "Screenshot",
-													message: "Saved to google drive!",
-												},
-												function(id) {setTimeout(function(){chrome.notifications.clear(id);}, 800);}
-											);
+											createProgressNotification('saved to google',800);
 										}
 										return res.json();
 									}).then(function(val) {
@@ -96,19 +115,13 @@ chrome.browserAction.onClicked.addListener(
 								});
 						
 							} else if (data.google == 'save to local') {
-								chrome.downloads.download({
-										url: screenshotUrl,
-										filename: screendate.concat('.png')
-										});
+								downloader_local(screenshotUrl,screendate);
 
 								} else if(data.google == 'logout'){
 									 chrome.identity.getAuthToken({ 'interactive': false }, (currentToken) => {
 									 	if(currentToken== undefined){
 									 		chrome.storage.sync.set({google: 'save to local'},()=>{});
-									 		chrome.downloads.download({
-									 		url: screenshotUrl,
-									 		filename: screendate.concat('.png')
-									 		});
+									 		downloader_local(screenshotUrl,screendate);
 									 		return;
 
 									 	}
@@ -116,22 +129,9 @@ chrome.browserAction.onClicked.addListener(
 									           // Remove the local cached token
 									         chrome.identity.removeCachedAuthToken({ token: currentToken }, () => {
 									         	 chrome.storage.sync.set({google: 'save to local'},()=>{});
-									         	 chrome.downloads.download({
-													url: screenshotUrl,
-									 				filename: screendate.concat('.png')
-									 				});
-									         	chrome.notifications.create(
-												"screenshot saver", {
-													type: "basic",
-													iconUrl: "ico.png",
-													silent: true,
-													title: "Screenshot",
-													message: "logged out successfully!, saving Locally :)",
-												},
-												function(id) {
-
-													setTimeout(function(){chrome.notifications.clear(id);}, 2000);}
-											);});
+									         	 downloader_local(screenshotUrl,screendate);
+									         	 createBasicNotification("logged out successfully!, saving Locally :)",2000);
+									         	});
 
 									               // Make a request to revoke token in the server
 									                     const xhr = new XMLHttpRequest()

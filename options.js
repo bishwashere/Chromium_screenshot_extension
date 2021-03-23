@@ -1,13 +1,8 @@
 let page = document.getElementById('buttonDiv');
 const Button = ['save to google','save to local','logout'];
-function constructOptions(Button) {
-  for (let item of Button) {
-    let button = document.createElement('button');
-    button.innerHTML = item;
-    button.addEventListener('click', function() {
-      chrome.storage.sync.set({google: item}, function() {
-        console.log('option is ' + item);//obviously
-        chrome.notifications.create(
+function notifier(item)
+{
+	  chrome.notifications.create(
                         "screenshot saver", {
                           type: "basic",
                           silent: true,
@@ -21,10 +16,19 @@ function constructOptions(Button) {
                             chrome.notifications.clear(id);chrome.tabs.getCurrent(function(tab) {
                             chrome.tabs.remove(tab.id, function() { });
                             });
-                            }, 600);
+                            }, 640);
                         }
                       );
-        
+
+}
+function constructOptions(Button) {
+  for (let item of Button) {
+    let button = document.createElement('button');
+    button.innerHTML = item;
+    button.addEventListener('click', function() {
+      chrome.storage.sync.set({google: item}, function() {
+        console.log('option is ' + item);//obviously
+        notifier(item);    
       })
     });
     page.appendChild(button);
