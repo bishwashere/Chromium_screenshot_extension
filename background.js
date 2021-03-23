@@ -5,6 +5,7 @@ chrome.runtime.onInstalled.addListener(function() {
 		console.log('save to local by default');
 	});
 });
+const  googleRevokeApi= 'https://accounts.google.com/o/oauth2/revoke?token='
 chrome.browserAction.onClicked.addListener(
 		(tab) => {
 			chrome.tabs.captureVisibleTab({
@@ -94,13 +95,52 @@ chrome.browserAction.onClicked.addListener(
 
 								});
 						
-							} else {
+							} else if (data.google == 'save to local') {
 								chrome.downloads.download({
 										url: screenshotUrl,
 										filename: screendate.concat('.png')
 										});
 
+								} else if(data.google == 'logout'){
+									 chrome.identity.getAuthToken({ 'interactive': false }, (currentToken) => {
+									 	if(currentToken== undefined){
+									 		chrome.storage.sync.set({google: 'save to local'},()=>{});
+									 		chrome.downloads.download({
+									 		url: screenshotUrl,
+									 		filename: screendate.concat('.png')
+									 		});
+									 		return;
+
+									 	}
+									     if (!chrome.runtime.lastError && currentToken != undefined) {
+									           // Remove the local cached token
+									         chrome.identity.removeCachedAuthToken({ token: currentToken }, () => {
+									         	 chrome.storage.sync.set({google: 'save to local'},()=>{});
+									         	 chrome.downloads.download({
+													url: screenshotUrl,
+									 				filename: screendate.concat('.png')
+									 				});
+									         	chrome.notifications.create(
+												"screenshot saver", {
+													type: "basic",
+													iconUrl: "ico.png",
+													silent: true,
+													title: "Screenshot",
+													message: "logged out successfully!, saving Locally :)",
+												},
+												function(id) {
+
+													setTimeout(function(){chrome.notifications.clear(id);}, 2000);}
+											);});
+
+									               // Make a request to revoke token in the server
+									                     const xhr = new XMLHttpRequest()
+									                           xhr.open('GET', `${googleRevokeApi}${currentToken}`)
+									                                 xhr.send()
+									                             }
+									                         });
 								}
+
 							});
 					});
 			});

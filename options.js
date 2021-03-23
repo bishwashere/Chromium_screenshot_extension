@@ -1,5 +1,5 @@
 let page = document.getElementById('buttonDiv');
-const Button = ['save to google','save to local'];
+const Button = ['save to google','save to local','logout'];
 function constructOptions(Button) {
   for (let item of Button) {
     let button = document.createElement('button');
