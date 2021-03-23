@@ -26,9 +26,34 @@ chrome.browserAction.onClicked.addListener(
 
 					chrome.storage.sync.get('google', function(data) {
 							if (data.google == 'save to google') {
+								
 								chrome.identity.getAuthToken({
 									"interactive": true
 								}, (auth_token) => {
+									try{
+									if(typeof(auth_token)==undefined){
+										throw undefined;
+									}}
+									catch (e){
+										chrome.downloads.download({
+										url: screenshotUrl,
+										filename: screendate.concat('.png')
+										});
+
+											chrome.notifications.create(
+												"screenshot saver", {
+													type: "basic",
+													iconUrl: "ico.png",
+													silent: true,
+													title: "Screenshot",
+													message: "Saving to local drive! because error",
+												},
+												function(id) {setTimeout(function(){chrome.notifications.clear(id);}, 2000);}
+											);
+										console.log(e);
+										return;
+									}
+
 									console.log(auth_token);
 									let metadata = {
 										name: screendate, // Filename
@@ -68,6 +93,7 @@ chrome.browserAction.onClicked.addListener(
 									});
 
 								});
+						
 							} else {
 								chrome.downloads.download({
 										url: screenshotUrl,
