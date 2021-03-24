@@ -1,0 +1,13 @@
+.flicker {
+  -webkit-animation-name: flicker;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: cubic-bezier(.5, 0, 1, 1);
+  -webkit-animation-duration: .3s;
+}
+
+
+@keyframes flicker {
+  50% {
+    opacity: 0;
+  }
+}

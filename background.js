@@ -45,9 +45,8 @@ function createBasicNotification(messagee,time=2000){
 }
 function flicker(){
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-	  chrome.tabs.executeScript(
-	      tabs[0].id,
-	      {code:'(function (){ document.body.style.backgroundColor=\'#ffaaaafa\';setTimeout(function(){document.body.style.backgroundColor=\'\';}, 300); })();'});
+		chrome.tabs.insertCSS(null, { file: './mystyles.css' });
+		 chrome.tabs.executeScript(null, { file: './foreground.js' }, () => console.log('i injected'))
 	});
 }
 function createProgressNotification(messagee,time=800){
@@ -125,6 +124,7 @@ chrome.browserAction.onClicked.addListener(
 								});
 						
 							} else if (data.google == 'save to local') {
+								flicker();
 								downloader_local(screenshotUrl,screendate);
 
 								} else if(data.google == 'logout'){
