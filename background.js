@@ -24,10 +24,15 @@ function create_the_blob(screenshotUrl){
 
 }
 function downloader_local(screenshotUrl,screendate){
+	chrome.downloads.setShelfEnabled(false);
 	chrome.downloads.download({
 		url: screenshotUrl,
 		filename: screendate.concat('.png')
 		});
+	setTimeout(function(){
+		chrome.downloads.setShelfEnabled(true);
+	},30);
+
 }
 function createBasicNotification(messagee,time=2000){
 	         	chrome.notifications.create(
