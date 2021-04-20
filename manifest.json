@@ -30,6 +30,7 @@
     }
     ,
     "permissions":  [
+        "downloads.shelf",
         "identity",
         "downloads",
         "activeTab",
