@@ -31,7 +31,7 @@ function downloader_local(screenshotUrl,screendate){
 		});
 	setTimeout(function(){
 		chrome.downloads.setShelfEnabled(true);
-	},30);
+	},88);
 
 }
 function createBasicNotification(messagee,time=2000){
