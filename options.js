@@ -28,7 +28,10 @@ function constructOptions(Button) {
     button.addEventListener('click', function() {
       chrome.storage.sync.set({google: item}, function() {
         console.log('option is ' + item);//obviously
-        notifier(item);    
+        notifier(item);
+	      if(item=='save to google'){
+		      chrome.identity.getAuthToken({"interactive": true}, (auth_token) => {});
+	      }
       })
     });
     page.appendChild(button);
