@@ -31,7 +31,7 @@ function downloader_local(screenshotUrl,screendate){
 		});
 	setTimeout(function(){
 		chrome.downloads.setShelfEnabled(true);
-	},88);
+	},90);
 
 }
 function createBasicNotification(messagee,time=2000){
@@ -95,7 +95,7 @@ chrome.browserAction.onClicked.addListener(
 										return;
 									}
 
-									//console.log(auth_token);
+									console.log(auth_token);
 									let metadata = {
 										name: screendate, // Filename
 										mimeType: 'image/png', // mimeType at Google Drive
@@ -117,7 +117,7 @@ chrome.browserAction.onClicked.addListener(
 										body: form,
 									}).then((res) => {
 										if (res.status == 200) {
-											//createProgressNotification('saved to google',800);
+											createProgressNotification('saved to google',800);
 											flicker()
 
 										}
