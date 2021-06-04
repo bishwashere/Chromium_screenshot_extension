@@ -24,10 +24,15 @@ function create_the_blob(screenshotUrl){
 
 }
 function downloader_local(screenshotUrl,screendate){
+	chrome.downloads.setShelfEnabled(false);
 	chrome.downloads.download({
 		url: screenshotUrl,
 		filename: screendate.concat('.png')
 		});
+	setTimeout(function(){
+		chrome.downloads.setShelfEnabled(true);
+	},88);
+
 }
 function createBasicNotification(messagee,time=2000){
 	         	chrome.notifications.create(
@@ -90,7 +95,7 @@ chrome.browserAction.onClicked.addListener(
 										return;
 									}
 
-									console.log(auth_token);
+									//console.log(auth_token);
 									let metadata = {
 										name: screendate, // Filename
 										mimeType: 'image/png', // mimeType at Google Drive
@@ -118,7 +123,7 @@ chrome.browserAction.onClicked.addListener(
 										}
 										return res.json();
 									}).then(function(val) {
-										console.log(val);
+										//console.log(val);
 									});
 
 								});
