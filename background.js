@@ -50,14 +50,8 @@ function createBasicNotification(messagee,time=2000){
 }
 function flicker(){
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-		 chrome.scripting.insertCSS(
-     {
-       target: {tabId: tabs[0].id},
-       files: ["mystyles.css"],
-     });
-  
-		 chrome.scripting.executeScript( {target: {tabId: tabs[0].id}, files: ['foreground.js'] }, () => console.log('i injected'))
-	});
+		 chrome.scripting.insertCSS({target: {tabId: tabs[0].id},files: ["mystyles.css"],});
+		 chrome.scripting.executeScript( {target: {tabId: tabs[0].id}, files: ['foreground.js'] }, () => console.log('i injected'))});
 }
 function createProgressNotification(messagee,time=800){
 	chrome.notifications.create(
