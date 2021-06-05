@@ -2,7 +2,7 @@
     "name": "VioSnip!",
     "description": "Free test product // pending Stripe ",
     "version": "3.0",
-    "key": "id here",
+    "key":  "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuxKe90JjhJtazFFWobIkK2Y5c6LWtYLGe5hzeIIgJhYsDi9GKe6lRt7D7CB6ZLNCwGutDnONol+mQdCOLnlwWcA0wdszMBcDA3VadLYn4qKv26RYcyYrc94QTgSfKCanW7m79YqVSma33XqsfsbVQBcfPvJfEWN5aGwFn38TLdOl1zY+v4bgnYjIG5lGO191R1puxjb/ri0mEQy1DrT4+cBI5OykdeUm4tWALSfJ4VARdPTD7CZIT30I27YbY1T+fE9tTN5eKGn0AzsYFqb/BNt3yAwuONV9UZ3H3EL/aKYLFkC6mF03m64yo7rMPpjDXRGE452fXkLV6hOd7YiAGQIDAQAB",
     "manifest_version": 3,
     "oauth2": {
         "client_id": "1234567890-abcd1234efghijkl.apps.googleusercontent.com",
