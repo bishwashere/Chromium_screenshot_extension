@@ -1,8 +1,6 @@
 let page = document.getElementById('buttonDiv');
 const Button = ['save to google','save to local','logout'];
-chrome.tabs.query({windowType:'popup'}, function(tabs) {
-    console.log('Number of open tabs in all normal browser windows:',tabs.length);
-}); 
+
 function notifier(item){
   chrome.notifications.create(
     "screenshot saver", {
