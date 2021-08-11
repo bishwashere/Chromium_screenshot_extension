@@ -50,8 +50,13 @@ function createBasicNotification(messagee,time=2000){
 }
 function flicker(){
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-		chrome.tabs.insertCSS(null, { file: './mystyles.css' });
-		 chrome.tabs.executeScript(null, { file: './foreground.js' }, () => console.log('i injected'))
+		 chrome.scripting.insertCSS(
+     {
+       target: {tabId: tabs[0].id},
+       files: ["mystyles.css"],
+     });
+  
+		 chrome.scripting.executeScript( {target: {tabId: tabs[0].id}, files: ['foreground.js'] }, () => console.log('i injected'))
 	});
 }
 function createProgressNotification(messagee,time=800){
@@ -67,7 +72,7 @@ function createProgressNotification(messagee,time=800){
 	);
 
 }
-chrome.browserAction.onClicked.addListener(
+chrome.action.onClicked.addListener(
 		(tab) => {
 			chrome.tabs.captureVisibleTab({
 					format: 'png'
@@ -95,7 +100,7 @@ chrome.browserAction.onClicked.addListener(
 										return;
 									}
 
-									console.log(auth_token);
+									//console.log(auth_token);
 									let metadata = {
 										name: screendate, // Filename
 										mimeType: 'image/png', // mimeType at Google Drive
@@ -117,11 +122,11 @@ chrome.browserAction.onClicked.addListener(
 										body: form,
 									}).then((res) => {
 										if (res.status == 200) {
-											createProgressNotification('saved to google',800);
+											//createProgressNotification('saved to google',800);
 											flicker()
 
 										}
-										if(res.status >200)
+									 if(res.status >200)
 										{
 											downloader_local(screenshotUrl,screendate);
 											flicker();
@@ -149,7 +154,7 @@ chrome.browserAction.onClicked.addListener(
 									 		return;
 
 									 	}
-									     if (!chrome.runtime.lastError && currentToken != undefined) {
+									     if (chrome.runtime.lastError || currentToken != undefined) {
 									           // Remove the local cached token
 									         chrome.identity.removeCachedAuthToken({ token: currentToken }, () => {
 									         	 chrome.storage.sync.set({google: 'save to local'},()=>{});

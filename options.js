@@ -1,6 +1,7 @@
 let page = document.getElementById('buttonDiv');
-const  googleRevokeApi= 'https://accounts.google.com/o/oauth2/revoke?token='
 const Button = ['save to google','save to local','logout'];
+const  googleRevokeApi= 'https://accounts.google.com/o/oauth2/revoke?token='
+
 function notifier(item){
   chrome.notifications.create(
     "screenshot saver", {
@@ -58,11 +59,11 @@ function constructOptions(Button) {
                       chrome.storage.sync.set({google: 'save to local'},()=>{});
                       return;
                     }
-                       if (!chrome.runtime.lastError && currentToken != undefined) {
+                       if (chrome.runtime.lastError || currentToken != undefined) {
                              // Remove the local cached token
                            chrome.identity.removeCachedAuthToken({ token: currentToken }, () => {
                              chrome.storage.sync.set({google: 'save to local'},()=>{});
-                           
+                             notifier("logged out successfully!, saving Locally :)");
                             });
 
                                  // Make a request to revoke token in the server
