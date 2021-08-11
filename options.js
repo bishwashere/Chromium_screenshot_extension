@@ -1,6 +1,6 @@
 let page = document.getElementById('buttonDiv');
+const  googleRevokeApi= 'https://accounts.google.com/o/oauth2/revoke?token='
 const Button = ['save to google','save to local','logout'];
-
 function notifier(item){
   chrome.notifications.create(
     "screenshot saver", {
@@ -52,7 +52,27 @@ function constructOptions(Button) {
                   "interactive": true
                 }, (auth_token) => {});
       }
-      })
+      if(item == 'logout'){
+                   chrome.identity.getAuthToken({ 'interactive': false }, (currentToken) => {
+                    if(currentToken== undefined){
+                      chrome.storage.sync.set({google: 'save to local'},()=>{});
+                      return;
+                    }
+                       if (!chrome.runtime.lastError && currentToken != undefined) {
+                             // Remove the local cached token
+                           chrome.identity.removeCachedAuthToken({ token: currentToken }, () => {
+                             chrome.storage.sync.set({google: 'save to local'},()=>{});
+                           
+                            });
+
+                                 // Make a request to revoke token in the server
+                                       const xhr = new XMLHttpRequest()
+                                             xhr.open('GET', `${googleRevokeApi}${currentToken}`)
+                                                   xhr.send()
+                                               }
+                                           });
+                }
+      });
     });
     page.appendChild(button);
   }
